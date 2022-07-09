@@ -36,6 +36,12 @@ const Cart = () => {
     dispatch(minusItem(id))
   }
 
+  const onMakeOrder = () => {
+    if (window.confirm('Вы действительно хотите оформить заказ?')) {
+      alert('Заказ оформлен')
+    }
+  }
+
   return (
     <div className="content">
       <div className="container container--cart">
@@ -82,7 +88,7 @@ const Cart = () => {
                       <span>Вернуться назад</span>
                     </a>
                   </Link>
-                  <div className="button pay-btn">
+                  <div className="button pay-btn" onClick={onMakeOrder}>
                     <span>Оплатить сейчас</span>
                   </div>
                 </div>
