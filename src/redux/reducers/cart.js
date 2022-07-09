@@ -54,6 +54,41 @@ const cart = (state = initialState, action) => {
                 totalPrice: 0,
                 itemsCount: 0
             }
+        case 'PLUS_CART_ITEM':
+            const items = [
+                ...state.items[action.payload].items,
+                state.items[action.payload].items[0]
+            ]
+        
+            return {
+                ...state,
+                items: {
+                    ...state.items,
+                    [action.payload]: {
+                        items: items,
+                        totalPrice: getTotalPrice(items)
+                    }
+                },
+                itemsCount: totalSum(state.items, 'items.length'),
+                totalPrice: totalSum(state.items, 'totalPrice')
+            }
+        case 'MINUS_CART_ITEM':
+            const oldItems = state.items[action.payload].items
+            const item = oldItems.length > 1 ? state.items[action.payload].items.slice(1) : oldItems
+
+            return {
+                ...state,
+                items: {
+                    ...state.items,
+                    [action.payload]: {
+                        items: item,
+                        totalPrice: getTotalPrice(item)
+                    }
+                },
+                itemsCount: totalSum(state.items, 'items.length'),
+                totalPrice: totalSum(state.items, 'totalPrice')
+                         
+            }
         case 'REMOVE_CART_ITEM':
             const newItems = {
                 ...state.items

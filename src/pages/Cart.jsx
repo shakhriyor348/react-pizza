@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { CartItem } from '../components'
-import { clearCart, removeCartItem } from '../redux/actions/cart'
+import { clearCart, removeCartItem, plusItem, minusItem } from '../redux/actions/cart'
 import cartEmptyImg from '../assets/img/empty-cart.png'
 
 
@@ -26,6 +26,15 @@ const Cart = () => {
   const pizzasGroup = Object.keys(items).map(key => {
     return items[key].items[0]
   })
+
+
+  const onPlusItem = (id) => {
+    dispatch(plusItem(id))
+  }
+
+  const onMinusItem = (id) => {
+    dispatch(minusItem(id))
+  }
 
   return (
     <div className="content">
@@ -54,7 +63,7 @@ const Cart = () => {
               <div className="content__items">
                 {
                   pizzasGroup.map(pizza => (
-                    <CartItem key={pizza.id} name={pizza.name} type={pizza.type} size={pizza.size} totalPrice={items[pizza.id].totalPrice} totalCount={items[pizza.id].items.length} onRemoveItem={onRemoveItem} id={pizza.id}/>
+                    <CartItem key={pizza.id} name={pizza.name} type={pizza.type} size={pizza.size} totalPrice={items[pizza.id].totalPrice} totalCount={items[pizza.id].items.length} onRemoveItem={onRemoveItem} id={pizza.id} onPlusItem={onPlusItem} onMinusItem={onMinusItem} />
                   ))
                 }
               </div>
