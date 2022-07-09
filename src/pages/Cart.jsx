@@ -39,6 +39,7 @@ const Cart = () => {
   const onMakeOrder = () => {
     if (window.confirm('Вы действительно хотите оформить заказ?')) {
       alert('Заказ оформлен')
+      dispatch(clearCart())
     }
   }
 
